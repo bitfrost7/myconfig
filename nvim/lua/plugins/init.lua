@@ -1,7 +1,7 @@
 -- lua/plugins/init.lua (必须确保加载了所有模块和核心依赖)
 
 return {
-    { 'dracula/vim', lazy = false, priority = 1000 },
+    { 'folke/tokyonight.nvim', lazy = false, priority = 1000 },
     { 'nvim-tree/nvim-web-devicons', lazy = true },
     { 'nvim-lua/plenary.nvim' },
 

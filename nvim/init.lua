@@ -30,7 +30,7 @@ require("lazy").setup("plugins", {
 })
 
 -- 激活主题
-vim.cmd("colorscheme dracula") 
+vim.cmd("colorscheme tokyonight") 
 
 -- 加载按键映射
 require("config.keymaps")

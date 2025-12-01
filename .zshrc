@@ -1,9 +1,16 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # =======================================================
-# ZSHRC 主入口 (已修正)
+# ZSHRC 主入口
 # -------------------------------------------------------
 
 # --- 1. 核心路径 ---
-TOOL_PATH="/Users/user/Tools"
+TOOL_PATH="$HOME/Tools"
 SDK_PATH="${TOOL_PATH}/sdk"
 SCRIPT_PATH="${TOOL_PATH}/scripts"
 # 定义 Go SDK 根目录
@@ -29,5 +36,5 @@ source ~/.config/zsh/02_aliases.zsh
 source ~/.config/zsh/03_plugins.zsh
 # -------------------------------------------------------
 
-# JetBrains 启动逻辑
-___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

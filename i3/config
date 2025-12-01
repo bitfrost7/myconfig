@@ -1,0 +1,201 @@
+# ==============================================================================
+# 1. 变量设置 (Variables)
+# ==============================================================================
+# 主 Mod 键 Mod1: Alt 键
+set $mod Mod1                             
+
+set $term alacritty                       
+set $browser chromium                      
+set $editor nvim                          
+set $menu rofi -show drun -show-icons    
+set $window_switcher rofi -show window    
+set $screenshot_tool "maim -s /tmp/screenshot_$(date '+%Y%m%d_%H%M%S').png" 
+
+# ==============================================================================
+# 2. 外观 (Appearance)
+# ==============================================================================
+# 字体设置
+font pango:JetBrainsMono Nerd Font 10
+
+# 窗口边框: pixel 2 表示没有标题栏，只有 2 像素边框。pixel 0 则完全无边框。
+# 如果需要标题栏 , 可以使用 normal 1
+default_border pixel 2
+default_floating_border pixel 2
+new_window pixel 2
+
+# 窗口间隙 (Gaps) - 让窗口之间有空隙，保持美观。如果不想有间隙，设为 0。
+gaps inner 8
+gaps outer 0
+smart_gaps inverse_outer
+
+# 颜色定义
+set $bgcolor	  #523d6499
+set $in-bgcolor #3636364D
+set $text	      #ffffff
+set $u-bgcolor	#ff0000
+set $indicator	#a8a3c1
+set $in-text	  #969696
+set $focused-ws	#523d6480
+set $bar-color	#523d640D
+
+client.focused		      $bgcolor	  $bgcolor	  $text		  $indicator
+client.unfocused	      $in-bgcolor	$in-bgcolor	$in-text	$in-bgcolor
+client.focused_inactive	$in-bgcolor	$in-bgcolor	$in-text	$in-bgcolor
+client.urgent		        $u-bgcolor	$u-bgcolor	$text		  $u-bgcolor	
+
+# ==============================================================================
+# 3. 自启动程序 (Autostart)
+# ==============================================================================
+# 启动所有自动启动程序
+exec --no-startup-id dex --autostart --environment i3
+
+# 权限认证
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# 锁屏
+exec --no-startup-id xss-lock -- betterlockscreen -l dimblur --lock 10
+
+# 网络
+exec --no-startup-id nm-applet
+
+# 输入法
+exec --no-startup-id fcitx5 -d
+
+# 合成器
+# 配置 ~/.config/picom/picom.conf
+exec --no-startup-id picom --config ~/.config/picom/picom.conf -b
+
+# 墙纸
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/1.png
+
+# Polybar 启动脚本 (稍后配置，请确保脚本有执行权限)
+exec_always --no-startup-id ~/.config/polybar/launch.sh --forest
+
+# ==============================================================================
+# 4. 应用程序规则 (Application Rules)
+# ==============================================================================
+# 自动将特定应用程序移动到指定工作区
+# for_window [class="Alacritty"] move to workspace number $ws1
+
+# ==============================================================================
+# 5. 核心快捷键 (Keybindings - Core)
+# ==============================================================================
+# 使用浮动修饰键拖动窗口
+floating_modifier $mod
+
+bindsym $mod+Return exec $term                  
+bindsym $mod+q kill                             
+bindsym $mod+d exec $menu                       
+bindsym $mod+Tab exec $window_switcher          
+bindsym $mod+Shift+s exec $screenshot_tool      
+bindsym $mod+Shift+e exec $editor               
+
+bindsym $mod+Shift+l exec betterlockscreen -l dimblur
+bindsym $mod+Shift+c reload                    
+bindsym $mod+Shift+r restart                   
+bindsym $mod+Shift+q exec "i3-nagbar -t warning -m '您确定要退出 i3 吗？这会结束 X 会话.' -B '是的，退出 i3' 'i3-msg exit'" 
+bindsym $mod+Shift+o exec "systemctl poweroff"
+
+# ==============================================================================
+# 6. 窗口焦点与移动 (Focus & Move)
+# ==============================================================================
+# --- 聚焦窗口 ---
+bindsym $mod+Left focus left                   
+bindsym $mod+Down focus down                   
+bindsym $mod+Up focus up                       
+bindsym $mod+Right focus right                 
+bindsym $mod+space focus mode_toggle          
+bindsym $mod+a focus parent                    
+
+# --- 移动窗口 ---
+bindsym $mod+Shift+Left move left              
+bindsym $mod+Shift+Down move down              
+bindsym $mod+Shift+Up move up                  
+bindsym $mod+Shift+Right move right            
+
+# ==============================================================================
+# 7. 布局与模式 (Layout & Modes)
+# ==============================================================================
+bindsym $mod+h split h                         
+bindsym $mod+v split v                         
+bindsym $mod+f fullscreen toggle               
+
+bindsym $mod+s layout stacking                 
+bindsym $mod+w layout tabbed                   
+bindsym $mod+e layout toggle split             
+
+bindsym $mod+Shift+space floating toggle       
+
+# ==============================================================================
+# 8. 工作区 (Workspaces)
+# ==============================================================================
+# 定义工作区名称
+set $ws1 "1:Term"
+set $ws2 "2:Web"
+set $ws3 "3:Code"
+set $ws4 "4:Files"
+set $ws5 "5:Media"
+set $ws6 "6:Chat"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# 切换到工作区
+bindsym $mod+1 workspace number $ws1          
+bindsym $mod+2 workspace number $ws2         
+bindsym $mod+3 workspace number $ws3         
+bindsym $mod+4 workspace number $ws4         
+bindsym $mod+5 workspace number $ws5         
+bindsym $mod+6 workspace number $ws6         
+bindsym $mod+7 workspace number $ws7          
+bindsym $mod+8 workspace number $ws8          
+bindsym $mod+9 workspace number $ws9          
+bindsym $mod+0 workspace number $ws10         
+
+# 移动当前窗口到工作区
+bindsym $mod+Shift+1 move container to workspace number $ws1 
+bindsym $mod+Shift+2 move container to workspace number $ws2 
+bindsym $mod+Shift+3 move container to workspace number $ws3 
+bindsym $mod+Shift+4 move container to workspace number $ws4 
+bindsym $mod+Shift+5 move container to workspace number $ws5 
+bindsym $mod+Shift+6 move container to workspace number $ws6 
+bindsym $mod+Shift+7 move container to workspace number $ws7 
+bindsym $mod+Shift+8 move container to workspace number $ws8 
+bindsym $mod+Shift+9 move container to workspace number $ws9 
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# 在工作区之间循环切换，或者只切换到有活动的下一个工作区
+bindsym $mod+minus workspace next_on_output   
+bindsym $mod+equal workspace prev_on_output   
+
+# ==============================================================================
+# 9. 音量与多媒体 (Multimedia)
+# ==============================================================================
+set $refresh_i3status killall -SIGUSR1 i3status
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status 
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status 
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status        
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status 
+bindsym XF86AudioPlay exec playerctl play-pause      
+bindsym XF86AudioNext exec playerctl next             
+bindsym XF86AudioPrev exec playerctl previous         
+
+# ==============================================================================
+# 10. 调整大小模式 (Resize Mode)
+# ==============================================================================
+bindsym $mod+r mode "resize"
+
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym Left resize shrink width 10 px or 10 ppt       
+        bindsym Down resize grow height 10 px or 10 ppt        
+        bindsym Up resize shrink height 10 px or 10 ppt        
+        bindsym Right resize grow width 10 px or 10 ppt        
+
+        # Back to default mode
+        bindsym Return mode "default"                          
+        bindsym Escape mode "default"                          
+        bindsym $mod+r mode "default"                          
+}
