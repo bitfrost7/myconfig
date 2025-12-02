@@ -1,0 +1,61 @@
+gosw() {
+    # 颜色变量 
+    local GREEN='\033[0;32m'
+    local RED='\033[0;31m'
+    local NC='\033[0m'
+
+    # GOSDK 变量从主 .zshrc 继承
+    local GOSDK=${GOSDK:-~/Tools/sdk/go} 
+    
+    # 查找所有 Go 版本目录，并排除 gopath 等非版本目录
+    local CLEAN_VERSIONS
+    CLEAN_VERSIONS=($(ls -d $GOSDK/go* 2>/dev/null | grep -v 'gopath' | xargs -n 1 basename))
+
+    if [ ${#CLEAN_VERSIONS[@]} -eq 0 ]; then
+        echo -e "${RED}错误: 未在 ${GOSDK} 中找到任何 Go 版本。${NC}"
+        return 1
+    fi
+
+    # -------------------
+    # 核心切换逻辑
+    # -------------------
+    if [ -n "$1" ]; then
+        # 模式 1: 带参数切换 (gsw go1.21)
+        local TARGET_VERSION="$1"
+        if [ -d "$GOSDK/$TARGET_VERSION" ]; then
+            # 1. 更新 GOROOT
+            export GOROOT="$GOSDK/$TARGET_VERSION"
+            
+            # 2. 优雅地更新 PATH 环境变量 (利用 zsh path 数组)
+            # 移除旧的 GOROOT/bin 路径
+            path=( ${path:#$GOSDK/go*/bin} ) 
+            
+            # 将新的 GOROOT/bin 添加到 path 数组的最前面 (确保优先级最高)
+            path=( $GOROOT/bin $path )
+            
+            echo -e "${GREEN}✅ GOROOT 已切换到: ${GOROOT}${NC}"
+            return 0
+        else
+            echo -e "${RED}错误: 找不到版本号 ${TARGET_VERSION} 对应的目录。${NC}"
+            gsw # 显示可用列表
+            return 1
+        fi
+    else
+        # 模式 2: 无参数显示列表
+        echo -e "${GREEN}当前 GOROOT: ${GOROOT:-未设置}${NC}"
+        echo "可切换的 Go 版本 (位于 ${GOSDK}):"
+        
+        local current_index=1
+        for version in "${CLEAN_VERSIONS[@]}"; do
+             local marker=""
+             if [[ "$GOROOT" == "$GOSDK/$version" ]]; then
+                 marker="<--- 当前使用"
+             fi
+             echo -e "  ($current_index) $version ${GREEN}$marker${NC}"
+             ((current_index++))
+        done
+        
+        echo -e "\n${GREEN}用法: gsw <版本号> ${NC} (例如: gsw go1.22.0)"
+        return 0
+    fi
+}

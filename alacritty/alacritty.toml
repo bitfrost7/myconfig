@@ -24,12 +24,15 @@ italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
 
 [keyboard]
 bindings = [
+  # 新建终端
   { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+  # 复制粘贴
   { key = "C", mods = "Control|Shift", action = "Copy" },
   { key = "V", mods = "Control|Shift", action = "Paste" },
+  # 调整大小
   { key = "Equals", mods = "Control", action = "IncreaseFontSize" },
   { key = "Minus", mods = "Control", action = "DecreaseFontSize" },
-  { key = "Key0", mods = "Control", action = "ResetFontSize" },
+  { key = "Key0", mods = "Control", action = "ResetFontSize" }
 ]
 
 [cursor]
@@ -38,3 +41,8 @@ unfocused_hollow = true
 
 [selection]
 save_to_clipboard = true
+
+[mouse]
+bindings = [
+  { mouse = "Right", mods = "Control", action = "Paste" }
+]

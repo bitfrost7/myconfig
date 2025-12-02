@@ -1,0 +1,26 @@
+// Rofi 主配置
+@theme "solarized"
+
+configuration {
+    // 启动模式
+    modi: "drun,run,window";
+    
+    // 显示设置
+    show-icons: true;
+    display-drun: "󰀻 应用";
+    display-run: " 命令"; 
+    display-window: "󰖯 窗口";
+    
+    // 行为设置
+    case-sensitive: false;
+    cycle: true;
+    matching: "normal";
+    sort: true;
+    
+    // 终端
+    terminal: "alacritty";
+    
+    // 窗口设置
+    width: 50;
+    lines: 8;
+}

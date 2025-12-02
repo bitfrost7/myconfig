@@ -19,16 +19,21 @@ NC='\033[0m' # No Color
 # 注意：路径必须是完整的文件名或目录名。
 
 CONFIGS_TO_SYNC=(
-    # Neovim 配置目录 (最常见于 .config/nvim)
+    # Neovim 配置目录
     "$HOME/.config/nvim"
     # Zsh 配置文件
     "$HOME/.zshrc"
+    "$HOME/.config/zsh"
     # Alacritty 终端配置目录
     "$HOME/.config/alacritty"
-    # i3 窗口管理器配置 (Linux 用户的配置，macOS 上不存在则会跳过)
+    # i3 窗口管理器配置 
     "$HOME/.config/i3"
-    # Picom 窗口合成器配置 (Linux 用户的配置)
+    # Picom 窗口合成器配置
     "$HOME/.config/picom"
+    # polybar 配置
+    "$HOME/.config/polybar"
+    # rofi 配置
+    "$HOME/.config/rofi"
 )
 
 # --- 2. 目标目录设置 ---
