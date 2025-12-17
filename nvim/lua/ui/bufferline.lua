@@ -21,17 +21,6 @@ return {
         diagnostics = 'nvim_lsp',
       },
     })
-    
-    -- **键盘映射**
-    -- [TAB] [SHIFT+TAB] 上个/下个标签
-    map('n', '<Tab>', '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next Buffer' })
-    map('n', '<S-Tab>', '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Prev Buffer' })
-    -- [LD+bc] 关闭标签
-    map('n', '<leader>bc', '<Cmd>bd<CR>', { desc = 'Buffer: Close current buffer' })
-    -- [LD 1-9 选择1-9标签]
-    for i = 1, 9 do
-        map('n', vim.g.mapleader .. i, '<Cmd>BufferLineGoToBuffer ' .. i .. '<CR>', { desc = 'Go to Buffer ' .. i })
-    end
   end
 }
 

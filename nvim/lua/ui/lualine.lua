@@ -8,15 +8,11 @@ return {
       options = {
         -- 启用图标
         icons_enabled = true,
-        -- 使用一个流行主题，例如 'tokyonight', 'dracula', 'gruvbox'。
-        -- 如果设置为 'auto'，则使用当前 colorscheme 的配色。
-        theme = 'dracula', 
-        -- 设置 Powerline 风格的分隔符
+        theme = 'auto', 
+        -- 设置分隔符
         component_separators = { left = '', right = ''}, -- 组内组件分隔符
         section_separators = { left = '', right = ''},   -- 左右区块分隔符
-        -- 启用全局状态栏（只在 Neovim 0.7+ 有效），只显示一个状态栏在底部
         globalstatus = false,
-        -- 总是显示 Tabline（如果您使用了 Tabline 扩展）
         always_show_tabline = true,
       },
       

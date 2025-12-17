@@ -7,7 +7,9 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- 加载基本配置
-require("config.options") 
+require("config.options")
+require("config.keymaps")
+require("config.settings")
 
 -- 插件管理器：检查并安装 lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -24,14 +26,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- 启动 lazy.nvim 并加载插件配置
-require("lazy").setup("plugins", {
-  install = { colorscheme = { "dracula", "default" } },
-  change_detection = { notify = false },
+require("lazy").setup({
+  spec = {
+    { import = "editor" }, -- 编辑器
+    { import = "tools" },  -- 工具
+    { import = "ui" },     -- 外观样式
+  },
+  install = { colorscheme = { "tokyonight-storm" } }
 })
-
--- 激活主题
-vim.cmd("colorscheme tokyonight") 
-
--- 加载按键映射
-require("config.keymaps")
-

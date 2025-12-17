@@ -24,7 +24,7 @@ return {
       },
       -- 过滤设置：不显示某些文件
       filters = {
-        dotfiles = false, -- 默认不显示点文件（如 .git）
+        dotfiles = true, -- 默认不显示点文件（如 .git）
         custom = { 'node_modules' }, -- 添加您想隐藏的自定义文件夹
       },
       -- 映射设置
