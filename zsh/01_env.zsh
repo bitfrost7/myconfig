@@ -2,14 +2,12 @@
 # 01_env.zsh: 环境变量和 PATH 设置
 # =======================================================
 
-# --- 1. SDK 初始化 ---
-export GOPATH="${GOSDK}/gopath"
-export NODE_SDK="${SDK_PATH}/node-v22.19.0"
+# --- 1. 环境变量 配置 ---
+GOPATH="$HOME/.local/share/go"
+NVM_DIR="$HOME/.nvm"
+GEM_PATH=".local/share/gem/ruby/3.4.0"
 
-# 初始化 GOROOT (默认1.18)
-if [ -z "$GOROOT" ]; then
-    export GOROOT="${GOSDK}/go1.18.10" 
-fi
+CODE_COMPANION_KEY="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"
 
 # --- 2. PATH 配置 (Zsh Array) ---
 typeset -aU path
@@ -18,16 +16,13 @@ typeset -aU path
 path=(
     $HOME/bin
     /usr/local/bin
-    /opt/homebrew/bin
-    $GOROOT/bin         # 必须包含 GOROOT/bin
-    $GOPATH/bin         # 必须包含 GOPATH/bin
-    $NODE_SDK/bin
-    $TOOL_PATH/bin
+    $GOPATH/bin
+    $GEM_PATH/bin
     $path
 )
 export PATH # 确保 PATH 变量在整个 shell 会话中可用
 
 # --- 3. 其他配置 ---
-# Flutter 配置
-export PUB_HOSTED_URL="https://pub.flutter-io.cn"
-export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
+export GOPATH
+export NVM_DIR
+export CODE_COMPANION_KEY

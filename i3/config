@@ -2,7 +2,7 @@
 # 1. 变量设置 (Variables)
 # ==============================================================================
 # 主 Mod 键 Mod1: Alt 键
-set $mod Mod1                             
+set $mod Mod4                             
 
 set $term alacritty                       
 set $browser chromium                      

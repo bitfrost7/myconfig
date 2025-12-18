@@ -22,8 +22,8 @@ CONFIGS_TO_SYNC=(
 	# Neovim 配置目录
 	"$HOME/.config/nvim"
 	# Zsh 配置文件 系统不一致 所以不进行同步
-	# "$HOME/.zshrc"
-	# "$HOME/.config/zsh"
+	"$HOME/.zshrc"
+	"$HOME/.config/zsh"
 	# Alacritty 终端配置目录
 	"$HOME/.config/alacritty"
 	# i3 窗口管理器配置
